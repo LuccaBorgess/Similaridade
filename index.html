@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Similaridade</title>
+    <link rel = "stylesheet" href = "styles/reset.css" type = "text/css" media = "screen"/>
+    <link rel = "stylesheet" href = "styles/cores.css" type = "text/css" media = "screen"/>
+    <link rel = "stylesheet" href = "styles/style.css" type = "text/css" media = "screen"/>
+    <link rel = "stylesheet" href = "styles/consulta.css" type = "text/css" media = "screen"/>
+    <link rel = "stylesheet" href = "styles/opcoes.css" type = "text/css" media = "screen"/>
+</head>     
+<body>
+    <main class = "m_container">
+        <section class = "main_container">
+            <div class = "c_livro">
+                <h1 class = "c_livro__h1">Consulte um livro</h1>
+                <form class = "c_livro__form" action = "" >
+                    <div class = "container_input">
+                        <h2 class = "titulo_input">Título</h2>
+                        <input class = "t_input" type = "text" name = "titulo" placeholder = "Livro de escolha.">
+                    </div>
+                    <div class = "container_input">
+                        <h2 class = "titulo_input">Autor</h2>
+                        <input class = "t_input" type = "text" name = "autor" placeholder = "Autor desejado.">
+                    </div>
+                    <div class = "container_input">
+                        <h2 class = "titulo_input">N° de páginas</h2>
+                        <input class = "t_input" type = "number" name = "pagina" placeholder = "N° páginas">
+                    </div>
+                    <div class = "container_input">
+                        <h2 class = "titulo_input">N° de livros semelhantes</h2>
+                        <input class = "t_input" type = "number" name = "livro" placeholder = "N° de livros">
+                    </div>
+                    <div class = "container_idade">
+                        <select class = "select_idade" name = "age_restricted" id = "age_restricted">
+                            <option value="o-1">Livre</option>
+                            <option value="o-2">+10 anos</option>
+                            <option value="o-1">+12 anos</option>
+                            <option value="o-2">+14 anos</option>
+                            <option value="o-2">+16 anos</option>
+                            <option value="o-2">+18 anos</option>
+                        </select>
+                    </div>
+                    <div class = "container_genero">
+                        <li class = "genero_lista">
+                            <ul class = "genero_item">
+                                <p class = "genero_nome">Ação</p>
+                                <input class = "c_input" type = "checkbox" name = "genero">
+                            </ul>
+                            <ul class = "genero_item">
+                                <p class = "genero_nome">Autoajuda</p>
+                                <input class = "c_input" type = "checkbox" name = "genero">
+                            </ul>
+                            <ul class = "genero_item">
+                                <p class = "genero_nome">Comédia</p>
+                                <input class = "c_input" type = "checkbox" name = "genero">
+                            </ul>
+                            <ul class = "genero_item">
+                                <p class = "genero_nome">Culinária</p>
+                                <input class = "c_input" type = "checkbox" name = "genero">
+                            </ul>
+                            <ul class = "genero_item">
+                                <p class = "genero_nome">Estudos</p>
+                                <input class = "c_input" type = "checkbox" name = "genero">
+                            </ul>
+                            <ul class = "genero_item">
+                                <p class = "genero_nome">Finanças</p>
+                                <input class = "c_input" type = "checkbox" name = "genero">
+                            </ul>
+                            <ul class = "genero_item">
+                                <p class = "genero_nome">Infantil</p>
+                                <input class = "c_input" type = "checkbox" name = "genero">
+                            </ul>
+                            <ul class = "genero_item">
+                                <p class = "genero_nome">Mistério</p>
+                                <input class = "c_input" type = "checkbox" name = "genero">
+                            </ul>
+                            <ul class = "genero_item">
+                                <p class = "genero_nome">Psicologia</p>
+                                <input class = "c_input" type = "checkbox" name = "genero">
+                            </ul>
+                            <ul class = "genero_item">
+                                <p class = "genero_nome">Religião</p>
+                                <input class = "c_input" type = "checkbox" name = "genero">
+                            </ul>
+                            <ul class = "genero_item">
+                                <p class = "genero_nome">Romance</p>
+                                <input class = "c_input" type = "checkbox" name = "genero">
+                            </ul>
+                            <ul class = "genero_item">
+                                <p class = "genero_nome">Suspense</p>
+                                <input class = "c_input" type = "checkbox" name = "genero">
+                            </ul>
+                            <ul class = "genero_item">
+                                <p class = "genero_nome">Técnico</p>
+                                <input class = "c_input" type = "checkbox" name = "genero">
+                            </ul>
+                            <ul class = "genero_item">
+                                <p class = "genero_nome">Terror</p>
+                                <input class = "c_input" type = "checkbox" name = "genero">
+                            </ul>
+                            <ul class = "genero_item">
+                                <p class = "genero_nome">Aventura</p>
+                                <input class = "c_input" type = "checkbox" name = "genero">
+                            </ul>
+                        </li>
+                    </div>
+                </form>
+                <div class = "container_botoes">
+                    <button class = "b_input" type = "button" name = "limpar">Limpar</button>
+                    <button class = "b_input" type = "button" name = "limpar">Consultar</button>
+                </div>
+            </div>
+            <span class = "border"></span>
+            <div class = "m_livro">
+                <h1 class = "m_livro__h1">Melhor opção</h1>
+                <img class = "img_livro" src = "indoali.jpg">
+                <form class = "c_livro__form c_livro__resultado" action = "" >
+                    <div class = "container_input container_input-op">
+                        <h2 class = "titulo_input">Título</h2>
+                        <p class = "p_opcoes">Título livro</p>
+                    </div>
+                    <div class = "container_input container_input-op">
+                        <h2 class = "titulo_input">Autor</h2>
+                        <p class = "p_opcoes">Autor livro</p>
+                    </div>
+                    <div class = "container_input container_input-op container_mult">
+                        <div class = "container_mult__c">
+                            <h2 class = "titulo_input">Genero</h2>
+                            <p class = "p_opcoes">Genero livro</p>
+                        </div>
+                        <div class = "container_mult__c">
+                            <h2 class = "titulo_input">Idade</h2>
+                            <p class = "p_opcoes">Idade livro</p>
+                        </div>
+                    </div>
+                </form>
+                <span class = "border_bottom"></span>
+                <h1 class = "c_resultado__h1">Similares</h1>
+                <div class = "form_scroll">
+                    <form class = "c_livro__form c_livro__resultado resultado_margin" action = "" >
+                        <div class = "container_input container_input-op">
+                            <h2 class = "titulo_input">Título</h2>
+                            <p class = "p_opcoes">Título livro</p>
+                        </div>
+                        <div class = "container_input container_input-op">
+                            <h2 class = "titulo_input">Autor</h2>
+                            <p class = "p_opcoes">Autor livro</p>
+                        </div>
+                        <div class = "container_input container_input-op container_mult">
+                            <div class = "container_mult__c">
+                                <h2 class = "titulo_input">Genero</h2>
+                                <p class = "p_opcoes">Genero livro</p>
+                            </div>
+                            <div class = "container_mult__c">
+                                <h2 class = "titulo_input">Idade</h2>
+                                <p class = "p_opcoes">Idade livro</p>
+                            </div>
+                        </div>
+                        <span class = "border_bottom"></span>
+                    </form>
+                    <form class = "c_livro__form c_livro__resultado" action = "" >
+                        <div class = "container_input container_input-op">
+                            <h2 class = "titulo_input">Título</h2>
+                            <p class = "p_opcoes">Título livro</p>
+                        </div>
+                        <div class = "container_input container_input-op">
+                            <h2 class = "titulo_input">Autor</h2>
+                            <p class = "p_opcoes">Autor livro</p>
+                        </div>
+                        <div class = "container_input container_input-op container_mult">
+                            <div class = "container_mult__c">
+                                <h2 class = "titulo_input">Genero</h2>
+                                <p class = "p_opcoes">Genero livro</p>
+                            </div>
+                            <div class = "container_mult__c">
+                                <h2 class = "titulo_input">Idade</h2>
+                                <p class = "p_opcoes">Idade livro</p>
+                            </div>
+                        </div>
+                        <span class = "border_bottom"></span>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
