@@ -8,38 +8,40 @@
     <link rel = "stylesheet" href = "styles/cores.css" type = "text/css" media = "screen"/>
     <link rel = "stylesheet" href = "styles/style.css" type = "text/css" media = "screen"/>
     <link rel = "stylesheet" href = "styles/consulta.css" type = "text/css" media = "screen"/>
-    <link rel = "stylesheet" href = "styles/opcoes.css" type = "text/css" media = "screen"/>
+    <link rel = "stylesheet" href = "styles/opcoes.css" type = "text/css" media = "screen"/>          
+    <script type="module" src="Controller/Commands.js"></script> <!--Arquivo de comandos-->>             
 </head>     
-<body>
+<body>        
     <main class = "m_container">
         <section class = "main_container">
             <div class = "c_livro">
                 <h1 class = "c_livro__h1">Consulte um livro</h1>
-                <form class = "c_livro__form" action = "" >
+                <form id = 'Selections_Forms' class = "c_livro__form" action = "" >
                     <div class = "container_input">
                         <h2 class = "titulo_input">Título</h2>
-                        <input class = "t_input" type = "text" name = "titulo" placeholder = "Livro de escolha.">
+                        <input id="Title_IPT" class = "t_input" type = "text" name = "titulo" placeholder = "Livro de escolha.">
                     </div>
                     <div class = "container_input">
                         <h2 class = "titulo_input">Autor</h2>
-                        <input class = "t_input" type = "text" name = "autor" placeholder = "Autor desejado.">
+                        <input id="Author_IPT" class = "t_input" type = "text" name = "autor" placeholder = "Autor desejado.">
                     </div>
                     <div class = "container_input">
                         <h2 class = "titulo_input">N° de páginas</h2>
-                        <input class = "t_input" type = "number" min = "0" name = "pagina" placeholder = "N° páginas">
+                        <input id='Pages_IPT' class = "t_input" type = "number" min = "0" name = "pagina" placeholder = "N° páginas">
                     </div>
                     <div class = "container_input">
                         <h2 class = "titulo_input">N° de livros semelhantes</h2>
-                        <input class = "t_input" type = "number" min = "0" name = "livro" placeholder = "N° de livros">
+                        <input id="SimilarNum_IPT" value="5" class = "t_input" type = "number" min = "0" name = "livro" placeholder = "N° de livros">
                     </div>
                     <div class = "container_idade">
-                        <select class = "select_idade" name = "age_restricted" id = "age_restricted">
-                            <option value="o-1">Livre</option>
-                            <option value="o-2">+10 anos</option>
-                            <option value="o-1">+12 anos</option>
-                            <option value="o-2">+14 anos</option>
-                            <option value="o-2">+16 anos</option>
-                            <option value="o-2">+18 anos</option>
+                        <select id = 'Rate_Selection' class = "select_idade" name = "age_restricted" id = "age_restricted">
+                            <option value="0">Não Definido</option>
+                            <option value="1">Livre</option>
+                            <option value="2">+10 anos</option>
+                            <option value="3">+12 anos</option>
+                            <option value="4">+14 anos</option>
+                            <option value="5">+16 anos</option>
+                            <option value="6">+18 anos</option>
                         </select>
                     </div>
                     <div class = "container_genero">
@@ -108,54 +110,62 @@
                     </div>
                 </form>
                 <div class = "container_botoes">
-                    <button class = "b_input" type = "button" name = "limpar">Limpar</button>
-                    <button class = "b_input" type = "button" name = "limpar">Consultar</button>
+                    <button id = 'Clear' class = "b_input" type = "button" name = "limpar">Limpar</button>
+                    <button id = 'Consult' class = "b_input" type = "button" name = "limpar">Consultar</button>
                 </div>
             </div>
-            <span class = "border"></span>
-            <div class = "m_livro">
-                <h1 class = "m_livro__h1">Melhor opção</h1>
-                <img class = "img_livro" src = "indoali.jpg">
-                <form class = "c_livro__form c_livro__resultado" action = "" >
+            <span id = 'Books_border' class = "border" style="display: none;"></span>
+            <div id = 'Books_Bar' class = "m_livro" style="display: none;">
+                <h1 id = 'Best_Selection_H' class = "m_livro__h1">Livros</h1>
+                <img id = 'Best_Selection_IMG' class = "img_livro" src = "indoali.jpg">
+                <form id = 'Best_Selection'class = "c_livro__form c_livro__resultado" action = "" >                    
                     <div class = "container_input container_input-op">
                         <h2 class = "titulo_input">Título</h2>
-                        <p class = "p_opcoes">Título livro</p>
+                        <p id="Title" class = "p_opcoes">--</p>
                     </div>
                     <div class = "container_input container_input-op">
                         <h2 class = "titulo_input">Autor</h2>
-                        <p class = "p_opcoes">Autor livro</p>
+                        <p id="Author" class = "p_opcoes">--/p>
                     </div>
                     <div class = "container_input container_input-op container_mult">
                         <div class = "container_mult__c">
                             <h2 class = "titulo_input">Genero</h2>
-                            <p class = "p_opcoes">Genero livro</p>
+                            <p id = 'Genders' class = "p_opcoes">--</p>
                         </div>
                         <div class = "container_mult__c">
                             <h2 class = "titulo_input">Idade</h2>
-                            <p class = "p_opcoes">Idade livro</p>
+                            <p id = 'Rate' class = "p_opcoes">--</p>
+                        </div>
+                        <div class = "container_mult__c">
+                            <h2 class = "titulo_input">Paginas</h2>
+                            <p id = 'PagesNum' class = "p_opcoes">--</p>
                         </div>
                     </div>
                 </form>
                 <span class = "border_bottom"></span>
-                <h1 class = "c_resultado__h1">Similares</h1>
-                <div class = "form_scroll">
+                <h1 id = 'Similars_H' class = "c_resultado__h1">Similares</h1>
+                <div id = 'Similars' class = "form_scroll">
                     <form class = "c_livro__form c_livro__resultado resultado_margin" action = "" >
                         <div class = "container_input container_input-op">
                             <h2 class = "titulo_input">Título</h2>
-                            <p class = "p_opcoes">Título livro</p>
+                            <p class = "p_opcoes">--</p>
                         </div>
                         <div class = "container_input container_input-op">
                             <h2 class = "titulo_input">Autor</h2>
-                            <p class = "p_opcoes">Autor livro</p>
+                            <p class = "p_opcoes">--</p>
                         </div>
                         <div class = "container_input container_input-op container_mult">
                             <div class = "container_mult__c">
                                 <h2 class = "titulo_input">Genero</h2>
-                                <p class = "p_opcoes">Genero livro</p>
+                                <p class = "p_opcoes">--</p>
                             </div>
                             <div class = "container_mult__c">
                                 <h2 class = "titulo_input">Idade</h2>
-                                <p class = "p_opcoes">Idade livro</p>
+                                <p class = "p_opcoes">--</p>
+                            </div>
+                            <div class = "container_mult__c">
+                                <h2 class = "titulo_input">Paginas</h2>
+                                <p class = "p_opcoes">--</p>
                             </div>
                         </div>
                         <span class = "border_bottom"></span>
@@ -163,20 +173,24 @@
                     <form class = "c_livro__form c_livro__resultado" action = "" >
                         <div class = "container_input container_input-op">
                             <h2 class = "titulo_input">Título</h2>
-                            <p class = "p_opcoes">Título livro</p>
+                            <p class = "p_opcoes">--</p>
                         </div>
                         <div class = "container_input container_input-op">
                             <h2 class = "titulo_input">Autor</h2>
-                            <p class = "p_opcoes">Autor livro</p>
+                            <p class = "p_opcoes">--</p>
                         </div>
                         <div class = "container_input container_input-op container_mult">
                             <div class = "container_mult__c">
                                 <h2 class = "titulo_input">Genero</h2>
-                                <p class = "p_opcoes">Genero livro</p>
+                                <p class = "p_opcoes">--</p>
                             </div>
                             <div class = "container_mult__c">
                                 <h2 class = "titulo_input">Idade</h2>
-                                <p class = "p_opcoes">Idade livro</p>
+                                <p class = "p_opcoes">--</p>
+                            </div>
+                            <div class = "container_mult__c">
+                                <h2 class = "titulo_input">Paginas</h2>
+                                <p class = "p_opcoes">--</p>
                             </div>
                         </div>
                         <span class = "border_bottom"></span>

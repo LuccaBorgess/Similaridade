@@ -1,6 +1,6 @@
 .c_livro {
     padding: 0.5rem;
-    width: 80%;
+    width: 100%;
 }
 
 .border {
@@ -41,8 +41,8 @@
 }
 
 .container_idade {
- align-items: center;
- text-align: center;
+    align-items: center;
+    text-align: center;
 }
 
 .select_idade {
