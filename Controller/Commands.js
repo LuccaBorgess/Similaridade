@@ -9,6 +9,8 @@ let SelectedAuthor;
 let SelectedTitle;
 let PagesNum;
 let SimilarsCount;
+let _Info
+let Books
 
 //Eventos
 document.getElementById("Clear").addEventListener("click", function() {
@@ -38,28 +40,55 @@ async function getGenderKey(genre) {
     }
 }
 
+async function GetBooks(_Info) {
+    console.log(_Info)
+
+    try {
+        const response = await fetch("http://127.0.0.1:5000/get_Books", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ _Info })
+        });
+
+        const data = await response.json();              
+        return data.key
+
+    } catch (error) {
+        console.error("Erro ao chamar o servidor:", error.message);
+    }
+}
+
 //Funções
 function ClearAll(){
     document.getElementById("Selections_Forms").reset();
     document.getElementById("Books_Bar").style.display = "none";    
     document.getElementById("Books_border").style.display = "none";
-    makingConsult = false;
+    makingConsult = false;    
 }
 
-async function GetGenders() {   
+async function GetGenders() {           
     let checkedGenres = document.querySelectorAll(".container_genero input[type='checkbox']:checked");
     
     selectedGenres = Array.from(checkedGenres).map(checkbox => 
         checkbox.previousElementSibling.textContent.trim());
-        
+    
     if (selectedGenres.length == 1)
-        selectedGenres = await getGenderKey(selectedGenres);            
+        selectedGenres = await getGenderKey(selectedGenres); 
     
     document.getElementById("Genders").textContent = (selectedGenres.length > 0) 
                                                     ? selectedGenres[0] : "";
 }
 
 function GetMainVars(){
+    selectedGenres  = "";
+    RateSelection   = "0";
+    PagesNum        = 0;
+    SelectedAuthor  = "";
+    SelectedTitle   = "";
+    SimilarsCount   = "5";
+
     GetGenders();
 
     RateSelection = document.getElementById('Rate_Selection').value //Idade Informada
@@ -75,6 +104,18 @@ function GetMainVars(){
     document.getElementById("Title").textContent = SelectedTitle
 
     SimilarsCount = document.getElementById('SimilarNum_IPT').value //Contagem de Similares
+}
+
+function makeinfoArray(){
+    const bookData = {};
+
+    if (selectedGenres.length > 0) bookData[1] = selectedGenres;
+    if (RateSelection  != "0")     bookData[2] = RateSelection;
+    if (PagesNum       != 0)       bookData[3] = PagesNum;
+    if (SelectedAuthor != "")      bookData[4] = SelectedAuthor;
+    if (SelectedTitle  != "")      bookData[5] = SelectedTitle;
+
+    return Object.keys(bookData).length > 0 ? bookData : null;
 }
 
 function makeConsult() {    
@@ -94,18 +135,20 @@ function makeConsult() {
 
     document.getElementById("Books_Bar").style.display = "block";
     document.getElementById("Books_border").style.display= "block";
-
+    
     /*document.getElementById("Best_Selection").style.visibility = "hidden";
     document.getElementById("Best_Selection_IMG").style.visibility = "hidden";
     document.getElementById("Similars_H").style.visibility = "hidden";
     document.getElementById("Similars").style.visibility = "hidden";*/
     
-    GetMainVars();
-
-    //Faz a consulta
-
-    //apos a consulta makingConsult = false
-
+    GetMainVars();    
+    _Info = makeinfoArray()    
+    Books = GetBooks([(_Info && Object.keys(_Info).length > 1 ? 2 : 1), _Info,SimilarsCount])
+    console.log(Books)
+    makingConsult = false
+    
+    document.getElementById("Similars_H").innerText = ((SimilarsCount == 0) ? "Similares não solicitados" : 'Similares');
+    
     /*document.getElementById("Best_Selection_H").innerText = 'Melhor Opção';
     document.getElementById("Best_Selection").style.visibility = "visible";
     document.getElementById("Best_Selection_IMG").style.visibility = "visible";
