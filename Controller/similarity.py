@@ -10,6 +10,8 @@ BooksExcel = pd.read_excel('D:\Similaridade_Model\Similaridade.xlsx')
 books      = BooksExcel.to_dict(orient='records')
 
 class Similarity_Books:    
+    booksCount = 0
+
     gender_mapping = {
             1: 'Ação',
             2: 'Autoajuda',
@@ -43,7 +45,8 @@ class Similarity_Books:
         5:  16,
         6:  18
     }
-
+    
+    @staticmethod
     def getSimilarsGenders(_gender: int) -> str:
         Filtered_Similars = ""
         if _gender == 1: #ação
@@ -70,7 +73,8 @@ class Similarity_Books:
         elif _gender == 15: #Aventura
             Filtered_Similars = '15,1,11'
         return Filtered_Similars
-
+    
+    @staticmethod
     def makeConsult(_type: int, _info: str) -> list:
         Selections = []        
         for _refbook in books: #Primeira busca com todos os livros 
@@ -99,43 +103,65 @@ class Similarity_Books:
                 
         return Selections        
 
-    def MakeMistConsult(MistInfo: dict) -> list:
-        Selections = []        
-        for _refbook in books:         
-            valid = True
-            
-            if 1 in MistInfo:  # Gênero
-                _refbook_Genderidx = _refbook['Genero']
-                if not any(gender in _refbook_Genderidx for gender in MistInfo[1]):
-                    valid = False
-
-            if 2 in MistInfo:  # Classificação indicativa
-                if _refbook['Classificação Indicativa'] != Similarity_Books.Rate_mapping[int(MistInfo[2])]:
-                    valid = False
-
-            if 3 in MistInfo:  # Número de páginas (mínimo)
-                if _refbook['Paginas'] < int(MistInfo[3]):
-                    valid = False
-
-            if 4 in MistInfo:  # Autor
-                RefbookInfo = str(_refbook['Autor']).lower()
-                _info = str(MistInfo[4]).lower()
-                if _info not in RefbookInfo:
-                    valid = False
-
-            if 5 in MistInfo:  # Título
-                RefbookInfo = str(_refbook['Titulo']).lower()
-                _info = str(MistInfo[5]).lower()
-                if _info not in RefbookInfo:
-                    valid = False
-
-            if valid: # Se o livro passou em TODOS os critérios fornecidos, ele entra na lista
-                Selections.append(_refbook)
+    @staticmethod
+    def MakeMistConsult(MistInfo: dict):
+        Selections = []
 
         if 3 in MistInfo:
-            Selections = sorted([_book for _book in Selections if _book['Paginas'] >= int(MistInfo[3])], key=lambda x: x['Paginas'])
+            PageLimit  = MistInfo[3]
 
-        return Selections          
+        if 1 in MistInfo:
+            _info = MistInfo[1]
+            if len(_info) == 1:  # Se só um gênero foi digitado, buscar similares
+                _info = Similarity_Books.getSimilarsGenders(int(_info))
+
+            gender_Idx = [int(num) for num in _info.split(',')]
+            Gender_List = [Similarity_Books.gender_mapping[idx] for idx in gender_Idx]
+
+        while len(Selections) != Similarity_Books.Books_Num:
+            print(MistInfo)
+
+            for _refbook in books:         
+                valid = True
+
+                if 1 in MistInfo:  # Gênero
+                    _refbook_Genderidx = _refbook['Genero']
+                    if not any(gender in _refbook_Genderidx for gender in Gender_List):
+                        valid = False
+
+                if 2 in MistInfo:  # Classificação indicativa
+                    if _refbook['Classificação Indicativa'] != Similarity_Books.Rate_mapping[MistInfo[2]]:
+                        valid = False
+
+                if 3 in MistInfo:  # Número de páginas (mínimo)
+                    if _refbook['Paginas'] < MistInfo[3]:
+                        valid = False
+
+                if 4 in MistInfo:  # Autor
+                    RefbookInfo = str(_refbook['Autor']).lower()
+                    _info = str(MistInfo[4]).lower()
+                    if _info not in RefbookInfo:
+                        valid = False
+
+                if 5 in MistInfo:  # Título
+                    RefbookInfo = str(_refbook['Titulo']).lower()
+                    _info = str(MistInfo[5]).lower()
+                    if _info not in RefbookInfo:
+                        valid = False
+
+                # Se o livro passou em TODOS os critérios fornecidos, ele entra na lista
+                if valid:  
+                    Selections.append(_refbook)
+
+            if(len(Selections) > (Similarity_Books.booksCount + 1)):
+                break;  
+
+            if(len(Selections) < (Similarity_Books.booksCount + 1)):
+                if 3 in MistInfo: MistInfo[3] = (MistInfo[3] * 0,80) #Verifica se tem Paginas Informadas
+                if 2 in MistInfo: MistInfo[2] = (MistInfo[3] - 1) if (MistInfo[3] != 1) else MistInfo[3]                        
+
+        if 3 in MistInfo:
+            Selections = sorted([_book for _book in Selections if _book['Paginas'] >= PageLimit], key=lambda x: x['Paginas'])    
             
     def FilterType(FilterType_Int: int,_Info: dict) -> list:     
         '''Escopo basico
