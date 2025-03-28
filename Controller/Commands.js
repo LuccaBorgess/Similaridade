@@ -23,6 +23,21 @@ document.getElementById("Consult").addEventListener("click", function() {
 });
 
 //Funções API
+async function checkServerStatus() {
+    try {
+        const response = await fetch("http://127.0.0.1:5000", {
+            method: "GET"
+        });
+        if (response.ok) {
+            return true
+        } else {
+            return false
+        }
+    } catch (error) {
+        return false
+    }
+}
+
 async function getGenderKey(genre) {
     try {
         const response = await fetch("http://127.0.0.1:5000/get_gender_key", {
@@ -163,6 +178,13 @@ function FillBooks(){
     });
 }
 
+function UpdateInterface(_Control){
+    document.getElementById("Best_Selection").style.visibility     = (!_Control) ? "hidden" : "visible";
+    document.getElementById("Best_Selection_IMG").style.visibility = (!_Control) ? "hidden" : "visible";
+    document.getElementById("Similars_H").style.visibility         = (!_Control) ? "hidden" : "visible";
+    document.getElementById("Similars").style.visibility           = (!_Control) ? "hidden" : "visible";
+}
+
 async function makeConsult() {        
     let   dots     = "";
     let   HasBooks = false;
@@ -170,6 +192,16 @@ async function makeConsult() {
     
     clearInterval(loadingInterval);
     
+    if(await checkServerStatus() == false){
+        document.getElementById("Books_Bar").style.display    = "block";
+        document.getElementById("Books_border").style.display = "block";
+
+        UpdateInterface(false);
+
+        bestSelectionH.innerText = 'Erro no Servidor'
+        return;
+    }
+
     makingConsult = true; 
 
     loadingInterval = setInterval(() => {
@@ -184,11 +216,8 @@ async function makeConsult() {
     document.getElementById("Books_Bar").style.display    = "block";
     document.getElementById("Books_border").style.display = "block";
     
-    document.getElementById("Best_Selection").style.visibility     = "hidden";
-    document.getElementById("Best_Selection_IMG").style.visibility = "hidden";
-    document.getElementById("Similars_H").style.visibility         = "hidden";
-    document.getElementById("Similars").style.visibility           = "hidden";
-    
+    UpdateInterface(false);
+
     _Info = await GetMainVars();            
 
     if(_Info != null){
@@ -213,10 +242,6 @@ async function makeConsult() {
     {         
         clearInterval(loadingInterval);
         await sleep(500)        
-        document.getElementById("Best_Selection").style.visibility     = "visible";
-        document.getElementById("Best_Selection_IMG").style.visibility = "visible";
-
-        document.getElementById("Similars_H").style.visibility = "visible";
-        document.getElementById("Similars").style.visibility   = "visible";
+        UpdateInterface(true);
     }
 }
