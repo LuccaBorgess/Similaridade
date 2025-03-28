@@ -3,6 +3,14 @@
     width: 40%;
 }
 
+.c_modelo {
+    border-bottom: 2px solid var(--c_borda);
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
 .m_livro__h1 {
     text-align: center;
     margin-bottom: 1.5rem;
@@ -23,8 +31,9 @@
 .img_livro {
     border: 2px solid var(--c_borda);
     border-radius: 8px;
-    height: 20%;
-    margin: 1rem 1rem 1rem 2.2rem;
+    height: 150px;
+    width: 90px;
+    margin: 0.5rem 0.5rem 0.5rem 0.5rem;
     margin-top: 0;
 }
 
@@ -40,5 +49,9 @@
     margin-top: 0.2rem;
     font-size: 18px;
     text-align: center;
+}
+
+.c_livro__resultado {
+    max-width: 70%;
 }
 

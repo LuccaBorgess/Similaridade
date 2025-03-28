@@ -9,14 +9,14 @@
     <link rel = "stylesheet" href = "styles/style.css" type = "text/css" media = "screen"/>
     <link rel = "stylesheet" href = "styles/consulta.css" type = "text/css" media = "screen"/>
     <link rel = "stylesheet" href = "styles/opcoes.css" type = "text/css" media = "screen"/>          
-    <script type="module" src="Controller/Commands.js"></script> <!--Arquivo de comandos-->>             
+    <script type="module" src="Controller/Commands.js"></script> <!--Arquivo de comandos-->            
 </head>     
-<body>        
+<body>     
     <main class = "m_container">
         <section class = "main_container">
             <div class = "c_livro">
                 <h1 class = "c_livro__h1">Consulte um livro</h1>
-                <form id = 'Selections_Forms' class = "c_livro__form" action = "" >
+                <form id = 'Selections_Forms' class = "c_livro__form">
                     <div class = "container_input">
                         <h2 class = "titulo_input">Título</h2>
                         <input id="Title_IPT" class = "t_input" type = "text" name = "titulo" placeholder = "Livro de escolha.">
@@ -30,8 +30,8 @@
                         <input id='Pages_IPT' class = "t_input" type = "number" min = "0" name = "pagina" placeholder = "N° páginas">
                     </div>
                     <div class = "container_input">
-                        <h2 class = "titulo_input">N° de livros Similares</h2>
-                        <input id="SimilarNum_IPT" value="5" class = "t_input" type = "number" min = "0" name = "livro" placeholder = "N° de livros">
+                        <h2 class = "titulo_input">Nota</h2>
+                        <input id="SimilarNum_IPT" value="5" class = "t_input" type = "number" min = "0" max= "5" name = "livro" placeholder = "N° de livros">
                     </div>
                     <div class = "container_idade">
                         <select id = 'Rate_Selection' class = "select_idade" name = "age_restricted" id = "age_restricted">
@@ -117,84 +117,107 @@
             <span id = 'Books_border' class = "border" style="display: none;"></span>
             <div id = 'Books_Bar' class = "m_livro" style="display: none;">
                 <h1 id = 'Best_Selection_H' class = "m_livro__h1">Livros</h1>
-                <img id = 'Best_Selection_IMG' class = "img_livro" src = "">
-                <form id = 'Best_Selection'class = "c_livro__form c_livro__resultado" action = "" >                    
-                    <div class = "container_input container_input-op">
-                        <h2 class = "titulo_input">Título</h2>
-                        <p id="Title" class = "p_opcoes">--</p>
-                    </div>
-                    <div class = "container_input container_input-op">
-                        <h2 class = "titulo_input">Autor</h2>
-                        <p id="Author" class = "p_opcoes">--</p>
-                    </div>
-                    <div class = "container_input container_input-op container_mult">
-                        <div class = "container_mult__c">
-                            <h2 class = "titulo_input">Genero</h2>
-                            <p id = 'Genders' class = "p_opcoes">--</p>
+                <div class = "c_modelo">
+                    <img id = 'Best_Selection_IMG' class = "img_livro" src = "indoali.jpg">
+                    <form id = 'Best_Selection'class = "c_livro__form c_livro__resultado">                    
+                        <div class = "container_input container_input-op container_mult">
+                            <div class = "container_mult__c">
+                                <h2 class = "titulo_input">Título</h2>
+                                <p id="Title" class = "p_opcoes">--</p>
+                            </div>
+                            <div class = "container_mult__c">
+                                <h2 class = titulo_input>Nota</h2>
+                                <p id="Title" class = "p_opcoes">--</p>
+                            </div>
                         </div>
-                        <div class = "container_mult__c">
-                            <h2 class = "titulo_input">Idade</h2>
-                            <p id = 'Rate' class = "p_opcoes">--</p>
+                        <div class = "container_input container_input-op">
+                            <h2 class = "titulo_input">Autor</h2>
+                            <p id="Author" class = "p_opcoes">--</p>
                         </div>
-                        <div class = "container_mult__c">
-                            <h2 class = "titulo_input">Paginas</h2>
-                            <p id = 'PagesNum' class = "p_opcoes">--</p>
+                        <div class = "container_input container_input-op container_mult">
+                            <div class = "container_mult__c">
+                                <h2 class = "titulo_input">Genero</h2>
+                                <p id = 'Genders' class = "p_opcoes">--</p>
+                            </div>
+                            <div class = "container_mult__c">
+                                <h2 class = "titulo_input">Idade</h2>
+                                <p id = 'Rate' class = "p_opcoes">--</p>
+                            </div>
+                            <div class = "container_mult__c">
+                                <h2 class = "titulo_input">Paginas</h2>
+                                <p id = 'PagesNum' class = "p_opcoes">--</p>
+                            </div>
                         </div>
-                    </div>
-                </form>
-                <span class = "border_bottom"></span>
+                    </form>
+                </div>
                 <h1 id = 'Similars_H' class = "c_resultado__h1">Similares</h1>
                 <div id = 'Similars' class = "form_scroll">
-                    <form class = "c_livro__form c_livro__resultado resultado_margin" action = "" >
-                        <div class = "container_input container_input-op">
-                            <h2 class = "titulo_input">Título</h2>
-                            <p class = "p_opcoes">--</p>
-                        </div>
-                        <div class = "container_input container_input-op">
-                            <h2 class = "titulo_input">Autor</h2>
-                            <p class = "p_opcoes">--</p>
-                        </div>
-                        <div class = "container_input container_input-op container_mult">
-                            <div class = "container_mult__c">
-                                <h2 class = "titulo_input">Genero</h2>
-                                <p class = "p_opcoes">--</p>
+                    <div class = "c_modelo">
+                        <img id = 'Best_Selection_IMG' class = "img_livro" src = "indoali.jpg">
+                        <form id = 'Best_Selection'class = "c_livro__form c_livro__resultado">                    
+                            <div class = "container_input container_input-op container_mult">
+                                <div class = "container_mult__c">
+                                    <h2 class = "titulo_input">Título</h2>
+                                    <p id="Title" class = "p_opcoes">--</p>
+                                </div>
+                                <div class = "container_mult__c">
+                                    <h2 class = titulo_input>Nota</h2>
+                                    <p id="Title" class = "p_opcoes">--</p>
+                                </div>
                             </div>
-                            <div class = "container_mult__c">
-                                <h2 class = "titulo_input">Idade</h2>
-                                <p class = "p_opcoes">--</p>
+                            <div class = "container_input container_input-op">
+                                <h2 class = "titulo_input">Autor</h2>
+                                <p id="Author" class = "p_opcoes">--</p>
                             </div>
-                            <div class = "container_mult__c">
-                                <h2 class = "titulo_input">Paginas</h2>
-                                <p class = "p_opcoes">--</p>
+                            <div class = "container_input container_input-op container_mult">
+                                <div class = "container_mult__c">
+                                    <h2 class = "titulo_input">Genero</h2>
+                                    <p id = 'Genders' class = "p_opcoes">--</p>
+                                </div>
+                                <div class = "container_mult__c">
+                                    <h2 class = "titulo_input">Idade</h2>
+                                    <p id = 'Rate' class = "p_opcoes">--</p>
+                                </div>
+                                <div class = "container_mult__c">
+                                    <h2 class = "titulo_input">Paginas</h2>
+                                    <p id = 'PagesNum' class = "p_opcoes">--</p>
+                                </div>
                             </div>
-                        </div>
-                        <span class = "border_bottom"></span>
-                    </form>
-                    <form class = "c_livro__form c_livro__resultado" action = "" >
-                        <div class = "container_input container_input-op">
-                            <h2 class = "titulo_input">Título</h2>
-                            <p class = "p_opcoes">--</p>
-                        </div>
-                        <div class = "container_input container_input-op">
-                            <h2 class = "titulo_input">Autor</h2>
-                            <p class = "p_opcoes">--</p>
-                        </div>
-                        <div class = "container_input container_input-op container_mult">
-                            <div class = "container_mult__c">
-                                <h2 class = "titulo_input">Genero</h2>
-                                <p class = "p_opcoes">--</p>
+                        </form>
+                    </div>
+                    <div class = "c_modelo">
+                        <img id = 'Best_Selection_IMG' class = "img_livro" src = "indoali.jpg">
+                        <form id = 'Best_Selection'class = "c_livro__form c_livro__resultado">                    
+                            <div class = "container_input container_input-op container_mult">
+                                <div class = "container_mult__c">
+                                    <h2 class = "titulo_input">Título</h2>
+                                    <p id="Title" class = "p_opcoes">--</p>
+                                </div>
+                                <div class = "container_mult__c">
+                                    <h2 class = titulo_input>Nota</h2>
+                                    <p id="Title" class = "p_opcoes">--</p>
+                                </div>
                             </div>
-                            <div class = "container_mult__c">
-                                <h2 class = "titulo_input">Idade</h2>
-                                <p class = "p_opcoes">--</p>
+                            <div class = "container_input container_input-op">
+                                <h2 class = "titulo_input">Autor</h2>
+                                <p id="Author" class = "p_opcoes">--</p>
                             </div>
-                            <div class = "container_mult__c">
-                                <h2 class = "titulo_input">Paginas</h2>
-                                <p class = "p_opcoes">--</p>
+                            <div class = "container_input container_input-op container_mult">
+                                <div class = "container_mult__c">
+                                    <h2 class = "titulo_input">Genero</h2>
+                                    <p id = 'Genders' class = "p_opcoes">--</p>
+                                </div>
+                                <div class = "container_mult__c">
+                                    <h2 class = "titulo_input">Idade</h2>
+                                    <p id = 'Rate' class = "p_opcoes">--</p>
+                                </div>
+                                <div class = "container_mult__c">
+                                    <h2 class = "titulo_input">Paginas</h2>
+                                    <p id = 'PagesNum' class = "p_opcoes">--</p>
+                                </div>
                             </div>
-                        </div>
-                        <span class = "border_bottom"></span>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
         </section>

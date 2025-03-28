@@ -17,7 +17,7 @@ h1 {
 
 .main_container {
     background-color: var(--c_container);
-    width: 820px;    
+    width: 900px;    
     height: 545px;
     border: 2px solid var(--c_borda);
     border-radius: 10px;
@@ -66,7 +66,7 @@ h1 {
     overflow-x: hidden;
     overflow-y: scroll;
     white-space: nowrap;
-    height: 35%;
+    height: 50%;
 }
 
 .resultado_margin {
