@@ -6,7 +6,7 @@ import pandas as pd
 app = Flask(__name__)
 CORS(app)
 
-BooksExcel = pd.read_excel('D:\Similaridade_Model\Similaridade.xlsx')
+BooksExcel = pd.read_excel('Similaridade.xlsx')
 books      = BooksExcel.to_dict(orient='records')
 
 class Similarity_Books:    
@@ -104,29 +104,25 @@ class Similarity_Books:
         return Selections        
 
     @staticmethod
-    def MakeMistConsult(MistInfo: dict):
+    def MakeMistConsult(MistInfo: dict) -> list:
         Selections = []
+        attempts   = 0
 
         if 3 in MistInfo:
-            PageLimit  = MistInfo[3]
+            PageLimit  = int(MistInfo[3])
 
         if 1 in MistInfo:
             _info = MistInfo[1]
-            if len(_info) == 1:  # Se só um gênero foi digitado, buscar similares
-                _info = Similarity_Books.getSimilarsGenders(int(_info))
 
-            gender_Idx = [int(num) for num in _info.split(',')]
-            Gender_List = [Similarity_Books.gender_mapping[idx] for idx in gender_Idx]
-
-        while len(Selections) != Similarity_Books.Books_Num:
-            print(MistInfo)
+        while len(Selections) < Similarity_Books.booksCount:
+            print(f'Info = {MistInfo}')
 
             for _refbook in books:         
                 valid = True
 
                 if 1 in MistInfo:  # Gênero
                     _refbook_Genderidx = _refbook['Genero']
-                    if not any(gender in _refbook_Genderidx for gender in Gender_List):
+                    if not any(gender in _refbook_Genderidx for gender in _info):
                         valid = False
 
                 if 2 in MistInfo:  # Classificação indicativa
@@ -134,18 +130,18 @@ class Similarity_Books:
                         valid = False
 
                 if 3 in MistInfo:  # Número de páginas (mínimo)
-                    if _refbook['Paginas'] < MistInfo[3]:
+                    if _refbook['Paginas'] < int(MistInfo[3]):
                         valid = False
 
                 if 4 in MistInfo:  # Autor
                     RefbookInfo = str(_refbook['Autor']).lower()
-                    _info = str(MistInfo[4]).lower()
+                    _info       = str(MistInfo[4]).lower()
                     if _info not in RefbookInfo:
                         valid = False
 
                 if 5 in MistInfo:  # Título
                     RefbookInfo = str(_refbook['Titulo']).lower()
-                    _info = str(MistInfo[5]).lower()
+                    _info       = str(MistInfo[5]).lower()
                     if _info not in RefbookInfo:
                         valid = False
 
@@ -153,15 +149,22 @@ class Similarity_Books:
                 if valid:  
                     Selections.append(_refbook)
 
+            attempts = attempts + 1
+
+            if attempts == 10:
+                break
+
             if(len(Selections) > (Similarity_Books.booksCount + 1)):
                 break;  
 
             if(len(Selections) < (Similarity_Books.booksCount + 1)):
-                if 3 in MistInfo: MistInfo[3] = (MistInfo[3] * 0,80) #Verifica se tem Paginas Informadas
-                if 2 in MistInfo: MistInfo[2] = (MistInfo[3] - 1) if (MistInfo[3] != 1) else MistInfo[3]                        
+                if 3 in MistInfo: MistInfo[3] = (int(MistInfo[3]) * 0.80) #Verifica se tem Paginas Informadas
+                if 2 in MistInfo: MistInfo[2] = (MistInfo[2] - 1) if (MistInfo[2] != 1) else MistInfo[2]                        
 
         if 3 in MistInfo:
             Selections = sorted([_book for _book in Selections if _book['Paginas'] >= PageLimit], key=lambda x: x['Paginas'])    
+
+        return Selections
             
     def FilterType(FilterType_Int: int,_Info: dict) -> list:     
         '''Escopo basico
@@ -205,8 +208,9 @@ def get_Books():
 
     print(f'key: {ListInfo[0]} / value: {ListInfo[1]} / Count: {ListInfo[2]}')      
 
+    Similarity_Books.booksCount = int(ListInfo[2])
     BookSelection = Similarity_Books.FilterType(ListInfo[0],ListInfo[1])
-    
+
     FilterSelection = BookSelection[:((int(ListInfo[2]) + 1) if len(BookSelection) > (int(ListInfo[2]) + 1) else len(BookSelection))]    
 
     print(FilterSelection)
@@ -221,7 +225,9 @@ def get_gender_key():
     if not genre_name:
         return jsonify({"error": "No genre provided"}), 400
 
-    key = Similarity_Books.get_key(genre_name[0])  
+    key = Similarity_Books.get_key(genre_name[0]) 
+
+    print(key) 
     
     if key is None:
         return jsonify({"error": "Genre not found"}), 404
@@ -229,6 +235,8 @@ def get_gender_key():
     SimilarGender = Similarity_Books.getSimilarsGenders(key)    
     SimilarGender = [int(num) for  num in SimilarGender.split(',')]
     Gender_List = [Similarity_Books.gender_mapping[idx] for idx in SimilarGender]    
+
+    print(Gender_List)
 
     return jsonify({"key": Gender_List})
 

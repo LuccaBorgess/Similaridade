@@ -31,7 +31,7 @@
                     </div>
                     <div class = "container_input">
                         <h2 class = "titulo_input">Nota</h2>
-                        <input id="SimilarNum_IPT" value="5" class = "t_input" type = "number" min = "0" max= "5" name = "livro" placeholder = "N° de livros">
+                        <input id="Classification_IPT" value="5" class = "t_input" type = "number" min = "0" max= "5" name = "livro" placeholder = "N° de livros">
                     </div>
                     <div class = "container_idade">
                         <select id = 'Rate_Selection' class = "select_idade" name = "age_restricted" id = "age_restricted">
@@ -136,7 +136,7 @@
                         </div>
                         <div class = "container_input container_input-op container_mult">
                             <div class = "container_mult__c">
-                                <h2 class = "titulo_input">Genero</h2>
+                                <h2 class = "titulo_input">Generos</h2>
                                 <p id = 'Genders' class = "p_opcoes">--</p>
                             </div>
                             <div class = "container_mult__c">
@@ -150,9 +150,42 @@
                         </div>
                     </form>
                 </div>
-                <h1 id = 'Similars_H' class = "c_resultado__h1">Similares</h1>
+                <h1 id = 'Similars_H' class = "c_resultado__h1">Voce Tambem Pode Gostar</h1>
                 <div id = 'Similars' class = "form_scroll">
-                    <div class = "c_modelo">
+                    <div id="bookTemplate" class = "c_modelo">
+                        <img id = 'Best_Selection_IMG_S' class = "img_livro" src = "indoali.jpg">
+                        <form id = 'Best_Selection'class = "c_livro__form c_livro__resultado">                    
+                            <div class = "container_input container_input-op container_mult">
+                                <div class = "container_mult__c">
+                                    <h2 class = "titulo_input">Título</h2>
+                                    <p id="Title_S" class = "p_opcoes">--</p>
+                                </div>
+                                <div class = "container_mult__c">
+                                    <h2 class = titulo_input>Nota</h2>
+                                    <p id="Title" class = "p_opcoes">--</p>
+                                </div>
+                            </div>
+                            <div class = "container_input container_input-op">
+                                <h2 class = "titulo_input">Autor</h2>
+                                <p id="Author_S" class = "p_opcoes">--</p>
+                            </div>
+                            <div class = "container_input container_input-op container_mult">
+                                <div class = "container_mult__c">
+                                    <h2 class = "titulo_input">Genero</h2>
+                                    <p id = 'Genders_S' class = "p_opcoes">--</p>
+                                </div>
+                                <div class = "container_mult__c">
+                                    <h2 class = "titulo_input">Idade</h2>
+                                    <p id = 'Rate_S' class = "p_opcoes">--</p>
+                                </div>
+                                <div class = "container_mult__c">
+                                    <h2 class = "titulo_input">Paginas</h2>
+                                    <p id = 'PagesNum_S' class = "p_opcoes">--</p>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!--<div id="bookTemplate" class = "c_modelo">
                         <img id = 'Best_Selection_IMG' class = "img_livro" src = "indoali.jpg">
                         <form id = 'Best_Selection'class = "c_livro__form c_livro__resultado">                    
                             <div class = "container_input container_input-op container_mult">
@@ -184,40 +217,7 @@
                                 </div>
                             </div>
                         </form>
-                    </div>
-                    <div class = "c_modelo">
-                        <img id = 'Best_Selection_IMG' class = "img_livro" src = "indoali.jpg">
-                        <form id = 'Best_Selection'class = "c_livro__form c_livro__resultado">                    
-                            <div class = "container_input container_input-op container_mult">
-                                <div class = "container_mult__c">
-                                    <h2 class = "titulo_input">Título</h2>
-                                    <p id="Title" class = "p_opcoes">--</p>
-                                </div>
-                                <div class = "container_mult__c">
-                                    <h2 class = titulo_input>Nota</h2>
-                                    <p id="Title" class = "p_opcoes">--</p>
-                                </div>
-                            </div>
-                            <div class = "container_input container_input-op">
-                                <h2 class = "titulo_input">Autor</h2>
-                                <p id="Author" class = "p_opcoes">--</p>
-                            </div>
-                            <div class = "container_input container_input-op container_mult">
-                                <div class = "container_mult__c">
-                                    <h2 class = "titulo_input">Genero</h2>
-                                    <p id = 'Genders' class = "p_opcoes">--</p>
-                                </div>
-                                <div class = "container_mult__c">
-                                    <h2 class = "titulo_input">Idade</h2>
-                                    <p id = 'Rate' class = "p_opcoes">--</p>
-                                </div>
-                                <div class = "container_mult__c">
-                                    <h2 class = "titulo_input">Paginas</h2>
-                                    <p id = 'PagesNum' class = "p_opcoes">--</p>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+                    </div>-->
                 </div>
             </div>
         </section>
